@@ -11,6 +11,11 @@ use TCG\Voyager\Models\Role;
  */
 trait VoyagerUser
 {
+    public function __construct()
+    {
+        $this->primaryKey = with(new ('\\' . config('voyager.user.namespace')))->getKeyName();
+    }
+
     public function role()
     {
         return $this->belongsTo(Voyager::modelClass('Role'));
