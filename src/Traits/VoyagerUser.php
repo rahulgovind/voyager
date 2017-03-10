@@ -13,7 +13,10 @@ trait VoyagerUser
 {
     public function __construct()
     {
-        $this->primaryKey = with(new ('\\' . config('voyager.user.namespace')))->getKeyName();
+        $user_class = '\\' . config('voyager.user.namespace');
+        $primary_key = with(new $user_class)->getKeyName();
+
+        $this->primaryKey = $primary_key;
     }
 
     public function role()
