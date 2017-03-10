@@ -9,9 +9,12 @@ class AddVoyagerUserFields extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($table) {
+        $user_class = '\\' . config('voyager.user.namespace');
+        $primary_key = with(new $user_class)->getKeyName();
+
+        Schema::table('users', function ($table) use ($primary_key) {
             $table->string('avatar')->nullable()->after('email');
-            $table->integer('role_id')->nullable()->after('id');
+            $table->integer('role_id')->nullable()->after($primary_key);
         });
     }
 
